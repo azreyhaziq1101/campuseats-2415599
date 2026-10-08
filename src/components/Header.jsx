@@ -13,4 +13,4 @@ function Header() {
  </header>
  )
 }
-export default HeaderS
+export default Header
