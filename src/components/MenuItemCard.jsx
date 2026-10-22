@@ -1,6 +1,6 @@
-function MenuItemCard({ item , onAdd}) {
+function MenuItemCard({ item , onAdd, onView }) {
  return (
- <article className="card menu-card">
+ <article className="card menu-card" onClick={() => onView(item)}>
  <div className="thumb" aria-hidden="true">{item.name.charAt(0)}</div>
  <p className="tag">{item.category}</p>
  <h3>{item.name}</h3>
