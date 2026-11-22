@@ -1,5 +1,5 @@
 # Firebase
-Firebase project ID: campuseats-2416464
+Firebase project ID: campuseats-2415599
 
 # React + Vite
 
