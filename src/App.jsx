@@ -9,6 +9,7 @@ import OrdersPage from './pages/OrdersPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 
 function App() {
@@ -20,11 +21,13 @@ function App() {
             <Route element={<Layout />}>
               <Route index element={<HomePage />} />
               <Route path="vendor/:id" element={<VendorPage />} />
-              <Route path="cart" element={<CartPage />} />
-              <Route path="orders" element={<OrdersPage />} />
-              <Route path="*" element={<NotFoundPage />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<RegisterPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="cart" element={<CartPage />} />
+                <Route path="orders" element={<OrdersPage />} />
+              </Route>
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </CartProvider>
