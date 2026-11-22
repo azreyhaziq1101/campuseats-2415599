@@ -10,10 +10,11 @@ function Header() {
   const navigate = useNavigate()
 
   async function handleLogout() {
+    if (user) localStorage.removeItem(`ce-recent-${user.uid}`)
     await logout()
     navigate('/')
   }
-    return (
+  return (
     <header className="header">
       <h1 className="logo">CampusEats</h1>
       <nav className="nav">
