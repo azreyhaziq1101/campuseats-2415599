@@ -7,6 +7,9 @@ import VendorPage from './pages/VendorPage.jsx'
 import CartPage from './pages/CartPage.jsx'
 import OrdersPage from './pages/OrdersPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import RegisterPage from './pages/RegisterPage.jsx'
+
 
 function App() {
   return (
@@ -20,6 +23,8 @@ function App() {
               <Route path="cart" element={<CartPage />} />
               <Route path="orders" element={<OrdersPage />} />
               <Route path="*" element={<NotFoundPage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="register" element={<RegisterPage />} />
             </Route>
           </Routes>
         </CartProvider>
