@@ -40,3 +40,19 @@
   useVendors(...) as it is undefined". The hook was no longer returning its
   object. I fixed it by restoring
   return { vendors, loading, error, reload }.
+
+  ## Week 5: Firebase Auth, AuthContext and protected routes
+
+Tool:Claude 
+
+What I asked
+- Help debugging errors I hit along the way.
+- How to make my personal feature (9, Recently viewed) work per user and clear on logout.
+
+What I kept or changed:
+- Fixed my own mistakes: `firebase.js` was saved outside `src/`, the `firebase` package was not installed, and one character of the API key in `.env.local` was missing (Network tab showed `API_KEY_INVALID`).
+- For feature 9, I kept my `useLocalStorage` hook unchanged and used a per-user key `ce-recent-<uid>`. Guests save nothing, and the key is removed in `handleLogout`. I added `key={user?.uid}` in `Layout` so the list reloads when the user changes.
+
+One thing the AI got wrong:
+- Its instruction to put the login/logout block "after the Cart link" was unclear, and I placed it inside the Cart `NavLink`, so the layout and clicks broke. I fixed it by moving the block after the closing `</NavLink>`.
+- It also first suggested rewriting `useLocalStorage` for key changes, which was more than needed. I asked for a minimal solution and used a `key` on `<main>` instead.
