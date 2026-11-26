@@ -3,7 +3,6 @@ import { useLocalStorage } from '../hooks/useLocalStorage.js'
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useLocalStorage('campuseats-cart', [])   // lines of { item, qty }
-  const [orders, setOrders] = useLocalStorage('campuseats-orders', [])
 
   // derived values: worked out, never stored
   const count = cart.reduce((sum, line) => sum + line.qty, 0)
@@ -35,19 +34,11 @@ export function CartProvider({ children }) {
     setCart((prev) => prev.filter((line) => line.item.id !== itemId))
   }
 
-  function placeOrder(details) {
-    const order = {
-      id: Date.now(),
-      ...details,          // name, mahallah, pickupTime
-      items: cart,
-      total,
-      placedAt: new Date().toISOString(),
-    }
-    setOrders((prev) => [order, ...prev])   // newest first
+  function clearCart() {
     setCart([])
   }
 
-  const value = { cart, orders, count, total, addToCart, changeQty, removeFromCart, placeOrder }
+  const value = { cart, count, total, addToCart, changeQty, removeFromCart, clearCart }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

@@ -1,18 +1,16 @@
 import { Link, useParams } from 'react-router'
-import { useVendors } from '../hooks/useVendors.js'
-import { useRecentlyViewed } from '../hooks/useRecentlyViewed.js'   // NEW
+import { useVendor } from '../hooks/useVendor.js'
+import { useRecentlyViewed } from '../hooks/useRecentlyViewed.js'
 import MenuList from '../components/MenuList.jsx'
 import { Loading, ErrorMessage } from '../components/Status.jsx'
 
 function VendorPage() {
   const { id } = useParams()
-  const { vendors, loading, error, reload } = useVendors()
-  const { addViewed } = useRecentlyViewed()                          // NEW
+  const { vendor, menu, loading, error } = useVendor(id)
+  const { addViewed } = useRecentlyViewed()
 
   if (loading) return <Loading />
-  if (error) return <ErrorMessage message={error} onRetry={reload} />
-
-  const vendor = vendors.find((v) => v.id === id)
+  if (error) return <ErrorMessage message={error} onRetry={() => window.location.reload()} />
 
   if (!vendor) {
     return (
@@ -23,14 +21,17 @@ function VendorPage() {
     )
   }
 
+  // Each item must know its vendor name, so the cart and orders can use it.
+  const items = menu.map((item) => ({ ...item, vendorName: vendor.name }))
+
   return (
     <section>
       <p><Link to="/">← All vendors</Link></p>
       <h2 className="section-title">{vendor.name}</h2>
       <p className="muted">{vendor.location} · {vendor.openHours}</p>
       <MenuList
-        items={vendor.menu}
-        onView={(item) =>addViewed(item, vendor) }    
+        items={items}
+        onView={(item) => addViewed(item, vendor)}
       />
     </section>
   )

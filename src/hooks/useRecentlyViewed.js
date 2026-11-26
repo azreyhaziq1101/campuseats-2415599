@@ -1,17 +1,21 @@
-import { useLocalStorage } from './useLocalStorage.js'
+import { useEffect, useState } from 'react'
+import { subscribeToRecent, saveRecent } from '../services/recent.js'
 import { useAuth } from './useAuth.js'
 
 export function useRecentlyViewed() {
   const { user } = useAuth()
-  const [stored, setStored] = useLocalStorage(
-    user ? `ce-recent-${user.uid}` : 'ce-recent-guest',
-    []
-  )
+  const [recent, setRecent] = useState([])
 
-  const recent = user ? stored : [] // guests see nothing
+  useEffect(() => {
+    if (!user) {
+      setRecent([])
+      return
+    }
+    return subscribeToRecent(user.uid, setRecent, (err) => console.error(err))
+  }, [user])
 
   function addViewed(item, vendor) {
-    if (!user) return // guests: nothing saved
+    if (!user) return
     const entry = {
       id: item.id,
       name: item.name,
@@ -19,10 +23,14 @@ export function useRecentlyViewed() {
       vendorId: vendor.id,
       vendorName: vendor.name,
     }
-    setStored((prev) => [entry, ...prev.filter((r) => r.id !== item.id)].slice(0, 5))
+    const next = [entry, ...recent.filter((r) => r.id !== item.id)].slice(0, 5)
+    saveRecent(user.uid, next).catch((err) => console.error(err))
   }
 
-  const clearRecent = () => setStored([])
+  function clearRecent() {
+    if (!user) return
+    saveRecent(user.uid, []).catch((err) => console.error(err))
+  }
 
   return { recent, addViewed, clearRecent }
 }

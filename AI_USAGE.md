@@ -56,3 +56,14 @@ What I kept or changed:
 One thing the AI got wrong:
 - Its instruction to put the login/logout block "after the Cart link" was unclear, and I placed it inside the Cart `NavLink`, so the layout and clicks broke. I fixed it by moving the block after the closing `</NavLink>`.
 - It also first suggested rewriting `useLocalStorage` for key changes, which was more than needed. I asked for a minimal solution and used a `key` on `<main>` instead.
+
+
+## Week 6
+
+Tools: Claude
+
+What I asked: Help me understand and build each Lab 6 file one at a time: the services layer, the live hooks (useVendors, useVendor, useMyOrders), placing and tracking orders, change and cancel, and moving my Recently viewed feature (digit 9) into Firestore.
+
+What I kept or changed: I kept the services and hooks structure from the AI. I changed the code to match my own files, for example keeping my addViewed, clearRecent and onView names, and I skipped the CSS because my lecturer said to focus on React.
+
+One thing the AI got wrong: It gave me a VendorPage that did not match my existing files, so I had to fix the imports and props myself.

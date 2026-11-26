@@ -10,6 +10,8 @@ import NotFoundPage from './pages/NotFoundPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import SeedPage from './pages/SeedPage.jsx'
+
 
 
 function App() {
@@ -23,6 +25,9 @@ function App() {
               <Route path="vendor/:id" element={<VendorPage />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<RegisterPage />} />
+
+              {import.meta.env.DEV && <Route path="seed" element={<SeedPage />} />}
+              
               <Route element={<ProtectedRoute />}>
                 <Route path="cart" element={<CartPage />} />
                 <Route path="orders" element={<OrdersPage />} />

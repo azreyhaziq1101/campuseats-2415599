@@ -1,7 +1,7 @@
 import MenuItemCard from './MenuItemCard.jsx'
 import { useCart } from '../hooks/useCart.js'
 
-function MenuList({ items, onView }) {
+function MenuList({ items = [], onView }) {
   const { addToCart } = useCart()
 
   if (items.length === 0) {

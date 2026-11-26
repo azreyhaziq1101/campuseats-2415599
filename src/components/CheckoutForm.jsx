@@ -13,8 +13,8 @@ function validate(values) {
   return errors
 }
 
-function CheckoutForm({ onPlaceOrder }) {
-  const [values, setValues] = useState({ name: '', mahallah: '', pickupTime: '' })
+function CheckoutForm({ defaultName = '', onPlaceOrder }) {
+const [values, setValues] = useState({ name: defaultName, mahallah: '', pickupTime: '' })
   const [errors, setErrors] = useState({})
 
   // one handler for every input; the input's name matches a key in values
